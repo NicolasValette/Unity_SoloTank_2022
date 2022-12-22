@@ -21,7 +21,7 @@ public class TrapZoneController : BaseController
     {
         for (int i = 0; i < _lCanons.Count; i++)
         {
-            _mHeads[i] = _lCanons[i].GetComponent<MeshRenderer>().material;
+            _mHeads.Add(_lCanons[i].GetComponent<MeshRenderer>().material);
             _mHeads[i].color = _cColorOff;
         }
     }
@@ -46,7 +46,7 @@ public class TrapZoneController : BaseController
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("OnCollisionEnter");
-        if (other.gameObject.CompareTag("Tank"))
+        if (/*other.gameObject.CompareTag("Tank") || */other.gameObject.CompareTag("BotTank"))
         {
             Debug.Log("TANK");
             _bIsLocked = true;
@@ -60,7 +60,7 @@ public class TrapZoneController : BaseController
     private void OnTriggerExit(Collider other)
     {
         Debug.Log("OnCollisionEnter");
-        if (other.gameObject.CompareTag("Tank"))
+        if (/*other.gameObject.CompareTag("Tank") ||*/ other.gameObject.CompareTag("BotTank"))
         {
             _bIsLocked = false;
             _goTargetAcquired = null;
