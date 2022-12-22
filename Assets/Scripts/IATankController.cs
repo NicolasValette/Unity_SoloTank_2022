@@ -8,8 +8,16 @@ public class IATankController : BaseController
 
     [SerializeField]
     private GameObject _goPlayerDetected;
+    [SerializeField]
+    private int _iDamage;
+
     private bool _bIsLocked;
-    NavMeshAgent _Agent;
+    private NavMeshAgent _Agent;
+
+    public int Damage
+    {
+        get { return _iDamage; }
+    }
     // Start is called before the first frame update
     void Start()
     {

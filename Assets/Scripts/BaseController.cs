@@ -14,7 +14,7 @@ public abstract class BaseController : MonoBehaviour
     [SerializeField]
     protected LayerMask Mask;
     [SerializeField]
-    protected int Cooldown;
+    protected float Cooldown;
     [SerializeField]
     protected int MaxLifePoint;
     [SerializeField]
@@ -52,6 +52,10 @@ public abstract class BaseController : MonoBehaviour
         if (collision.gameObject.CompareTag("Bullet"))
         {
             TakeDamage(collision.gameObject.GetComponent<BulletController>().Damage);
+        }
+        if (collision.gameObject.CompareTag("BotTank"))
+        {
+            TakeDamage(collision.gameObject.GetComponent<IATankController>().Damage);
         }
     }
 }
