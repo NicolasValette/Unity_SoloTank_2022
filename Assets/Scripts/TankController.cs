@@ -48,9 +48,10 @@ public class TankController : BaseController
 
     private void Move()
     {
+      
         if (Input.GetAxis("Vertical") != 0f)
         {
-            transform.Translate(Input.GetAxis("Vertical") * _fSpeed * Time.deltaTime, 0f, 0f);
+            transform.Translate(0f, 0f, Input.GetAxis("Vertical") * _fSpeed * Time.deltaTime);
         }
     }
     private void Turn()

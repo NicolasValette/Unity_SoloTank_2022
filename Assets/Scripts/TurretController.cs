@@ -11,6 +11,8 @@ public class TurretController : BaseController
     private float _fMaxRotateSpeed;
     [SerializeField]
     private bool _bIsActive = true;
+    [SerializeField]
+    private float _detectionRange = 10f;
 
     private float _fSpeed;
 
@@ -41,7 +43,7 @@ public class TurretController : BaseController
                 Rotate(new Vector3(0f, _fSpeed, 0f));
 
                 RaycastHit hit;
-                if (Physics.Raycast(BulletSpawnPosition[0].transform.position, BulletSpawnPosition[0].transform.up, out hit))
+                if (Physics.Raycast(BulletSpawnPosition[0].transform.position, BulletSpawnPosition[0].transform.up, out hit, _detectionRange))
                 {
                     Debug.DrawRay(BulletSpawnPosition[0].transform.position, BulletSpawnPosition[0].transform.up * 20f);
                     // Debug.Log("Touché : " + hit.collider.gameObject.name);
