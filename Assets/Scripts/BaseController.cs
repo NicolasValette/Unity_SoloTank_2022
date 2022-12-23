@@ -49,7 +49,10 @@ public abstract class BaseController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Bullet"))
+        /* Preferer la vérification de Componant plutot que la vérification de tag si c'est sur un GO contenant un objet C#
+         * gameObject.GetComponent<TankController>() != null
+         * Un test sur une string peut amener un certain nombre d'erreur */
+        if (collision.gameObject.CompareTag("Bullet")) 
         {
             TakeDamage(collision.gameObject.GetComponent<BulletController>().Damage);
         }
