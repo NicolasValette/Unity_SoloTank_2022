@@ -51,6 +51,7 @@ public abstract class BaseController : MonoBehaviour
     {
         /* Preferer la vérification de Componant plutot que la vérification de tag si c'est sur un GO contenant un objet C#
          * gameObject.GetComponent<TankController>() != null
+         * (GetComponentInParent) Test le component, puis tout les parents, plus chere en ressource, nécéssaire si on tape la tete de tourelle par ex
          * Un test sur une string peut amener un certain nombre d'erreur */
         if (collision.gameObject.CompareTag("Bullet")) 
         {
