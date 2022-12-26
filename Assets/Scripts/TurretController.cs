@@ -13,6 +13,10 @@ public class TurretController : BaseController
     private bool _bIsActive = true;
     [SerializeField]
     private float _detectionRange = 10f;
+    [SerializeField]
+    private GameObject _goTurretHead;
+    [SerializeField]
+    private GameObject _goRaySpawnPosition;
 
     private float _fSpeed;
 
@@ -43,18 +47,24 @@ public class TurretController : BaseController
                 Rotate(new Vector3(0f, _fSpeed, 0f));
 
                 RaycastHit hit;
-                if (Physics.Raycast(BulletSpawnPosition[0].transform.position, BulletSpawnPosition[0].transform.up, out hit, _detectionRange))
+                if (Physics.Raycast(_goRaySpawnPosition.transform.position, _goRaySpawnPosition.transform.forward, out hit))
                 {
-                    Debug.DrawRay(BulletSpawnPosition[0].transform.position, BulletSpawnPosition[0].transform.up * 20f);
-                    // Debug.Log("Touché : " + hit.collider.gameObject.name);
-                    Fire();
+                    Debug.DrawRay(_goRaySpawnPosition.transform.position, _goRaySpawnPosition.transform.forward * 20f);
+                    Debug.DrawLine(_goRaySpawnPosition.transform.position, _goRaySpawnPosition.transform.forward * 20f);
+                   // Debug.Log("Touché : " + hit.collider.gameObject.name);
+                    if (hit.collider.gameObject.GetComponent<TankController>() != null)
+                    {
+                        Debug.Log(hit.point);
+                        _goTurretHead.transform.LookAt(hit.transform.position);
+                        Fire();
+                    }
                 }
             }
         }
     }
     protected void Rotate(Vector3 euler)
     {
-        transform.eulerAngles += euler;
+        _goTurretHead.transform.parent.eulerAngles += euler;
     }
 
     protected override void TakeDamage(int ammount)
