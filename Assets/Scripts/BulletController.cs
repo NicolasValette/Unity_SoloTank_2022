@@ -23,7 +23,7 @@ public class BulletController : MonoBehaviour
     void Start()
     {
         _rigidbody= GetComponent<Rigidbody>();
-        _rigidbody.AddForce(transform.up * _fBulletSpeed); //AddForce : utilise la physique, la gravité, avec SetVelocity, la gravité n'altere pas la trajectoire de la balle)
+        _rigidbody.AddForce(transform.forward * _fBulletSpeed); //AddForce : utilise la physique, la gravité, avec SetVelocity, la gravité n'altere pas la trajectoire de la balle)
         _fDateOfDeath = Time.time + _fLifeSpan;
         /* Autre possibilité
          * Destroy (GameObject, Duration)

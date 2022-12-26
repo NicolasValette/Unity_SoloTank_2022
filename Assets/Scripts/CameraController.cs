@@ -55,7 +55,7 @@ public class CameraController : MonoBehaviour
         yaw = Mathf.Clamp(yaw, -45f, 45f);
         pitch = Mathf.Clamp(pitch, -10f, 10f);      //Invert Direction
 
-        transform.Rotate(0f, yaw, pitch);
+        transform.Rotate(pitch, yaw, 0f);
         
         _goPlayerCanon.transform.rotation = transform.rotation;
         
