@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using UnityEngine;
 
 public class TrapZoneController : BaseController
@@ -12,18 +13,20 @@ public class TrapZoneController : BaseController
     [SerializeField]
     private Color _cColorOn;
     private bool _bIsLocked = false;
-
-    private List<Material> _mHeads = new List<Material>();
+    [SerializeField]
+    private MeshRenderer _mGroundColor;
 
     private GameObject _goTargetAcquired;
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < _lCanons.Count; i++)
-        {
-            _mHeads.Add(_lCanons[i].GetComponent<MeshRenderer>().material);
-            _mHeads[i].color = _cColorOff;
-        }
+        
+        _mGroundColor.material.color = _cColorOff;
+        //for (int i = 0; i < _lCanons.Count; i++)
+        //{
+        //    _mHeads.Add(_lCanons[i].GetComponent<MeshRenderer>().material);
+        //    _mHeads[i].color = _cColorOff;
+        //}
     }
 
     // Update is called once per frame
@@ -45,29 +48,23 @@ public class TrapZoneController : BaseController
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnCollisionEnter");
-        if (/*other.gameObject.CompareTag("Tank") || */other.gameObject.CompareTag("BotTank"))
+        Debug.Log("OnTriggerEnter");
+        if (other.gameObject.CompareTag("Tank") || other.gameObject.CompareTag("BotTank"))
         {
             Debug.Log("TANK");
             _bIsLocked = true;
             _goTargetAcquired = other.gameObject;
-            for (int i = 0; i < _mHeads.Count; i++)
-            {
-                _mHeads[i].color = _cColorOn;
-            }
+            _mGroundColor.material.color = _cColorOn;
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("OnCollisionEnter");
-        if (/*other.gameObject.CompareTag("Tank") ||*/ other.gameObject.CompareTag("BotTank"))
+        Debug.Log("OnTriggerExit");
+        if (other.gameObject.CompareTag("Tank") || other.gameObject.CompareTag("BotTank"))
         {
             _bIsLocked = false;
             _goTargetAcquired = null;
-            for (int i = 0; i < _mHeads.Count; i++)
-            {
-                _mHeads[i].color = _cColorOff;
-            }
+            _mGroundColor.material.color = _cColorOff;
         }
     }
 
