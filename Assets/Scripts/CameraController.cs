@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro.EditorUtilities;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class CameraController : MonoBehaviour
 {
@@ -50,10 +45,10 @@ public class CameraController : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * _fRotateSpeed * Time.deltaTime;
        
         yaw += mouseX;
-        mouseX = Mathf.Clamp(mouseX, -45f, 45f);
+        mouseX = -Mathf.Clamp(mouseX, -45f, 45f);
         pitch += Input.GetAxis("Mouse Y") * _fRotateSpeed * Time.deltaTime;
         yaw = Mathf.Clamp(yaw, -45f, 45f);
-        pitch = Mathf.Clamp(pitch, -10f, 10f);      //Invert Direction
+        pitch = Mathf.Clamp(pitch, -10f, 0f);      //Invert Direction
 
         transform.Rotate(pitch, yaw, 0f);
         

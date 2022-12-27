@@ -59,7 +59,11 @@ public class UIHandler : MonoBehaviour
             _tTurretAliveText.text = _tTurretAliveText.text = $"Turret Alive {TurretManager.NbAliveTurret} / {TurretManager.NbMaxTurret}";
             if (_tank.IsReloading)
             {
-                _tAmmoText.text = "Ammo : RELOAD !!";
+                _tAmmoText.text = "Ammo : RELOADING !!";
+            }
+            else if (_tank.CurrentAmmo <= 0)
+            {
+                _tAmmoText.text = "Push 'R' to Reload !";
             }
             else
             {

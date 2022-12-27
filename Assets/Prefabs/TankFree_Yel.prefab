@@ -194,7 +194,7 @@ MonoBehaviour:
     m_Bits: 8
   Cooldown: 1
   MaxLifePoint: 5
-  MaxAmmo: 10
+  MaxAmmo: 5
   _fSpeed: 5
   _fTurnSpeed: 50
   _goCanon: {fileID: 2059808664247669003}

@@ -73,7 +73,7 @@ public class TankController : BaseController
     }
     private void Shoot()
     {
-        if (Input.GetAxis("Fire1")!=0)
+        if (Input.GetAxis("Fire1")!=0 && CurrentAmmo > 0)
         {
             Debug.Log("FEU");
             Fire();

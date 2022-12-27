@@ -47,14 +47,14 @@ public class TurretController : BaseController
                 Rotate(new Vector3(0f, _fSpeed, 0f));
 
                 RaycastHit hit;
-                if (Physics.Raycast(_goRaySpawnPosition.transform.position, _goRaySpawnPosition.transform.forward, out hit))
+                if (Physics.Raycast(_goRaySpawnPosition.transform.position, _goRaySpawnPosition.transform.forward, out hit, _detectionRange))
                 {
                     Debug.DrawRay(_goRaySpawnPosition.transform.position, _goRaySpawnPosition.transform.forward * 20f);
                     Debug.DrawLine(_goRaySpawnPosition.transform.position, _goRaySpawnPosition.transform.forward * 20f);
                    // Debug.Log("Touché : " + hit.collider.gameObject.name);
                     if (hit.collider.gameObject.GetComponent<TankController>() != null)
                     {
-                        Debug.Log(hit.point);
+                        
                         _goTurretHead.transform.LookAt(hit.transform.position);
                         Fire();
                     }
