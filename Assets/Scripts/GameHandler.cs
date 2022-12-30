@@ -8,25 +8,37 @@ public class GameHandler : MonoBehaviour
     public static bool IsGameOver { get; set; } = false;
     public static bool IsGameOn { get; set; } = false;
 
-    public static GameHandler _instance;
-    public static GameHandler Instance
+  
+
+    [SerializeField]
+    private GameObject _goUIHandler;
+
+    private static UIHandler _uiHandler;
+
+    public static bool IsWin
     {
         get
         {
-            if (Instance == null)
+            if (TurretManager.NbAliveTurret <= 0)
             {
-                Debug.Log("erreur");
+                if (IsGameOn)
+                {
+                    IsGameOn = false;
+                    _uiHandler.GameWin();
+                }
+
+
+                return true;
             }
-            return _instance;
+            return false;
         }
     }
 
 
-
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        _instance = this;
+        _uiHandler = _goUIHandler.GetComponent<UIHandler>();
     }
 
     // Update is called once per frame
@@ -44,14 +56,12 @@ public class GameHandler : MonoBehaviour
                 IsGameOn= true;
             }
         }
-        if (IsWin())
-        {
-
-        }
+       
     }
 
-    public bool IsWin ()
+    public static void GameOver()
     {
-        return TurretManager.NbAliveTurret <= 0;
+        IsGameOver = true;
     }
+ 
 }

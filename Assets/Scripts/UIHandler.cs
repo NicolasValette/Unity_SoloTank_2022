@@ -17,10 +17,24 @@ public class UIHandler : MonoBehaviour
     [SerializeField]
     private Image _fadeScreen;
     [SerializeField]
+    private TMP_Text _fadeText;
+    [SerializeField]
     private GameObject StartScreen;
+    [SerializeField]
+    private Color _cWinImageColor;
+    [SerializeField]
+    private Color _cWinTextColor;
     private TankController _tank;
+    private float _fadeProgress = 0f;
 
 
+    public void GameWin()
+    {
+        Debug.Log("Win UI");
+        _fadeText.text = "You Win ! Congrats !\nEscape to quit.";
+        _fadeText.color = _cWinTextColor;
+        _fadeScreen.color = _cWinImageColor;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -43,15 +57,18 @@ public class UIHandler : MonoBehaviour
         {
             StartScreen.SetActive(false);
         }
-        if (GameHandler.IsGameOver)
+        if (GameHandler.IsGameOver || GameHandler.IsWin)
         {
+            _fadeProgress += Time.deltaTime;
             _tLifeText.text = " PV : 0";
-            Debug.Log("WIN");
             UnityEngine.Color color = _fadeScreen.color;
-
-            color.a = Mathf.Lerp(_fadeScreen.color.a, 1f, Time.deltaTime);
+            color.a = Mathf.Lerp(0f, 1f, _fadeProgress);
 
             _fadeScreen.color = color;
+            color.r = _fadeText.color.r;
+            color.g = _fadeText.color.g;
+            color.b = _fadeText.color.b;
+            _fadeText.color = color;
         }
         else
         {
