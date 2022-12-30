@@ -35,7 +35,7 @@ public class TankController : BaseController
     // Update is called once per frame
     void Update()
     {
-        if (GameHandler.IsGameOn)
+        if (GameHandler.IsGameOn && !GameHandler.IsGameOver)
         {
             Move();
             Turn();

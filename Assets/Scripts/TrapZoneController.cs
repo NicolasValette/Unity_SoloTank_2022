@@ -32,7 +32,7 @@ public class TrapZoneController : BaseController
     // Update is called once per frame
     void Update()
     {
-        if (_bIsLocked)
+        if (_bIsLocked && _goTargetAcquired != null)
         {
             for (int i = 0; i < _lCanons.Count; i++)
             {

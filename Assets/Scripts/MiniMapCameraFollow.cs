@@ -11,6 +11,9 @@ public class MiniMapCameraFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = _goTargetToFollow.transform.position + _fYOffset;        
+        if (GameHandler.IsGameOn && !GameHandler.IsGameOver)
+        {
+            transform.position = _goTargetToFollow.transform.position + _fYOffset;
+        }
     }
 }
