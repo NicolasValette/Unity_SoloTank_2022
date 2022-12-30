@@ -967,7 +967,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _goPlayerCanon: {fileID: 1011653999}
   _vOffset: {x: 0, y: 0, z: 0}
-  _fRotateSpeed: 2000
+  _fRotateSpeed: 500
 --- !u!1001 &364280811
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4000,7 +4000,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1582112111176492, guid: 66f5d4b48170e4d48a06925106093f32, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1582112111176492, guid: 66f5d4b48170e4d48a06925106093f32, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -4825,7 +4825,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1582112111176492, guid: 66f5d4b48170e4d48a06925106093f32, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1582112111176492, guid: 66f5d4b48170e4d48a06925106093f32, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -4980,7 +4980,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1582112111176492, guid: 66f5d4b48170e4d48a06925106093f32, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1582112111176492, guid: 66f5d4b48170e4d48a06925106093f32, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -5770,7 +5770,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1582112111176492, guid: 66f5d4b48170e4d48a06925106093f32, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1582112111176492, guid: 66f5d4b48170e4d48a06925106093f32, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -6146,7 +6146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1582112111176492, guid: 66f5d4b48170e4d48a06925106093f32, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1582112111176492, guid: 66f5d4b48170e4d48a06925106093f32, type: 3}
       propertyPath: m_StaticEditorFlags
