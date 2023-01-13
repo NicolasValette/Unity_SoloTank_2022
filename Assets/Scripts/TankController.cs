@@ -37,6 +37,10 @@ public class TankController : BaseController
     {
         if (GameHandler.IsGameOn && !GameHandler.IsGameOver)
         {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                EventManager.TriggerEvent(EventManager.Events.OnQuit, null);
+            }
             Move();
             Turn();
             Rotate();
@@ -82,11 +86,12 @@ public class TankController : BaseController
 
     protected override void TakeDamage(int ammount)
     {
-    
+
         LifePoint -= ammount;
+        EventManager.TriggerEvent(EventManager.Events.OnLooseLife, new Dictionary<string, object>{ { "Life", LifePoint } });
         if (LifePoint <= 0)
         {
-            GameHandler.IsGameOver = true;
+            EventManager.TriggerEvent(EventManager.Events.OnLoose, null);
             Destroy(gameObject);
         }
     }
@@ -103,6 +108,7 @@ public class TankController : BaseController
         {
             IsReloading= false;
             CurrentAmmo = MaxAmmo;
+            EventManager.TriggerEvent(EventManager.Events.OnAmmoModification, new Dictionary<string, object> { { "Ammo", CurrentAmmo } });
         }
     }
 

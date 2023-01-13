@@ -40,15 +40,23 @@ public class GameHandler : MonoBehaviour
     {
         _uiHandler = _goUIHandler.GetComponent<UIHandler>();
     }
+    private void OnEnable()
+    {
+        EventManager.StartListening(EventManager.Events.OnQuit, GameQuit);
+        EventManager.StartListening(EventManager.Events.OnWin, GameWin);
+        EventManager.StartListening(EventManager.Events.OnLoose, GameOver);
+    }
+    private void OnDisable()
+    {
+        EventManager.StopListening(EventManager.Events.OnQuit, GameQuit);
+        EventManager.StopListening(EventManager.Events.OnWin, GameWin);
+        EventManager.StopListening(EventManager.Events.OnLoose, GameOver);
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Debug.Log("Echap");
-            Application.Quit();
-        }
+    
         if (!IsGameOn)
         {
             if (Input.GetKeyDown(KeyCode.Return))
@@ -59,9 +67,17 @@ public class GameHandler : MonoBehaviour
        
     }
 
-    public static void GameOver()
+    public static void GameOver(Dictionary<string, object> obj)
     {
         IsGameOver = true;
+    }
+    public void GameQuit(Dictionary<string, object> obj)
+    {
+        Application.Quit(); 
+    }
+    public void GameWin(Dictionary<string, object> obj)
+    {
+        Debug.Log("Win, not implemented");
     }
  
 }

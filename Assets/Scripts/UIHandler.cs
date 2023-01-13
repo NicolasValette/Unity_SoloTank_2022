@@ -27,6 +27,14 @@ public class UIHandler : MonoBehaviour
     private TankController _tank;
     private float _fadeProgress = 0f;
 
+    #region UI ELements to display
+    private string _life;
+    private string _ammo;
+    private string _maxTurret;
+    private string _turretsLeft;
+
+    #endregion
+
 
     public void GameWin()
     {
@@ -43,8 +51,8 @@ public class UIHandler : MonoBehaviour
         _tLifeText.color = Color.black;
         _tAmmoText.color = Color.black;
         _tTurretAliveText.color = Color.black;
-        _tLifeText.text = " PV : " + _tank.LifePoint.ToString();
-        _tAmmoText.text = " Ammo : " + _tank.CurrentAmmo.ToString();
+        _tLifeText.text = " PV : " + _life;
+        _tAmmoText.text = " Ammo : " + _ammo;
         _tTurretAliveText.text = $"Turret Alive {TurretManager.NbAliveTurret} / {TurretManager.NbMaxTurret}";
     }
 
@@ -87,5 +95,25 @@ public class UIHandler : MonoBehaviour
                 _tAmmoText.text = "Ammo : " + _tank.CurrentAmmo.ToString();
             }
         }
+    }
+    private void OnEnable()
+    {
+        EventManager.StartListening(EventManager.Events.OnLooseLife, SetLifePoint);
+        EventManager.StartListening(EventManager.Events.OnAmmoModification, SetAmmo);
+    }
+    private void OnDisable()
+    {
+        EventManager.StopListening(EventManager.Events.OnLooseLife, SetLifePoint);
+        EventManager.StopListening(EventManager.Events.OnAmmoModification, SetAmmo);
+    }
+    public void SetLifePoint(Dictionary<string, object> parameters)
+    {
+        int lifePoint = (int) parameters["Life"];
+       _life = lifePoint.ToString();
+    }
+    public void SetAmmo(Dictionary<string, object> parameters)
+    {
+        int ammo = (int) parameters["Ammo"];
+        _ammo = ammo.ToString();
     }
 }
