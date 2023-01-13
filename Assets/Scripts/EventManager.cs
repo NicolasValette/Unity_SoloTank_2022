@@ -10,7 +10,8 @@ public class EventManager
         OnQuit,
         OnWin,
         OnAmmoModification,
-        OnLooseLife
+        OnLooseLife,
+        OnTurretDeath
     }
     private Dictionary<Events, Action<Dictionary<string, object>>> eventDictionnary;
 

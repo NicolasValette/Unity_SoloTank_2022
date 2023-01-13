@@ -73,6 +73,7 @@ public class TurretController : BaseController
         if (LifePoint <= 0)
         {
             TurretManager.NbAliveTurret--;
+            EventManager.TriggerEvent(EventManager.Events.OnTurretDeath, new Dictionary<string, object> { { "Turret", TurretManager.NbAliveTurret } });
             Destroy(gameObject);
         }
     }

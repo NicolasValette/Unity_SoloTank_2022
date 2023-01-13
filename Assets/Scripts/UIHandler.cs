@@ -30,8 +30,8 @@ public class UIHandler : MonoBehaviour
     #region UI ELements to display
     private string _life;
     private string _ammo;
-    private string _maxTurret;
-    private string _turretsLeft;
+    private int _maxTurret;
+    private int _turretsLeft;
 
     #endregion
 
@@ -53,7 +53,8 @@ public class UIHandler : MonoBehaviour
         _tTurretAliveText.color = Color.black;
         _tLifeText.text = " PV : " + _life;
         _tAmmoText.text = " Ammo : " + _ammo;
-        _tTurretAliveText.text = $"Turret Alive {TurretManager.NbAliveTurret} / {TurretManager.NbMaxTurret}";
+        _maxTurret = TurretManager.NbMaxTurret;
+        _tTurretAliveText.text = $"Turret Alive {_turretsLeft} / {_maxTurret}";
     }
 
     // Update is called once per frame
@@ -115,5 +116,9 @@ public class UIHandler : MonoBehaviour
     {
         int ammo = (int) parameters["Ammo"];
         _ammo = ammo.ToString();
+    }
+    public void SetTurret(Dictionary<string, object> parameters)
+    {
+        int turret = (int)parameters["Turret"];
     }
 }
