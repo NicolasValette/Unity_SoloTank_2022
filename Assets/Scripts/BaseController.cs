@@ -37,9 +37,11 @@ public abstract class BaseController : MonoBehaviour
             for (int i = 0; i < BulletSpawnPosition.Count; i++)
             {
                 Instantiate<GameObject>(BulletPrefab, BulletSpawnPosition[i].transform.position, BulletSpawnPosition[i].transform.rotation);
+                
                 NextShootAvailable = Time.time + Cooldown;
                 CurrentAmmo--;
                 EventManager.TriggerEvent(EventManager.Events.OnAmmoModification, new Dictionary<string, object> { { "Ammo", CurrentAmmo } });
+                EventManager.TriggerEvent(EventManager.Events.OnFire, null);
             }
         }
     }

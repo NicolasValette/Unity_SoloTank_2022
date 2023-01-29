@@ -11,7 +11,8 @@ public class EventManager
         OnWin,
         OnAmmoModification,
         OnLooseLife,
-        OnTurretDeath
+        OnTurretDeath,
+        OnFire
     }
     private Dictionary<Events, Action<Dictionary<string, object>>> eventDictionnary;
 

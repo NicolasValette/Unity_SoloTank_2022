@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class TankController : BaseController
 {
@@ -9,18 +9,18 @@ public class TankController : BaseController
     private float _fSpeed;
     [SerializeField]
     private float _fTurnSpeed;
-    [SerializeField] 
+    [SerializeField]
     private GameObject _goCanon;
     [SerializeField]
     private float _fRotateSpeed;
     [SerializeField]
     private float ReloadTime;
-
+    [SerializeField]
+    private Image _reticule;
+    
     public bool IsReloading { get; private set; }
-    
 
-    
-
+    private AudioSource audioSource;
     private float yaw = 0f;
     private float pitch = 0f;
     // Start is called before the first frame update
@@ -28,9 +28,21 @@ public class TankController : BaseController
     {
         Debug.Log("PV : " + MaxLifePoint);
         LifePoint = MaxLifePoint;
-        
+
         CurrentAmmo = MaxAmmo;
+        audioSource = GetComponent<AudioSource>();
     }
+    private void OnEnable()
+    {
+        EventManager.StartListening(EventManager.Events.OnFire, PlayAudioShoot);
+
+           
+    }
+    private void OnDisable()
+    {
+        EventManager.StopListening(EventManager.Events.OnFire, PlayAudioShoot);
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -52,7 +64,7 @@ public class TankController : BaseController
 
     private void Move()
     {
-      
+
         if (Input.GetAxis("Vertical") != 0f)
         {
             transform.Translate(0f, 0f, Input.GetAxis("Vertical") * _fSpeed * Time.deltaTime);
@@ -67,20 +79,34 @@ public class TankController : BaseController
     }
     private void Rotate()
     {
-        
-       // yaw = Input.GetAxis("Mouse X") * _fRotateSpeed;
-       // pitch += Input.GetAxis("Mouse X");
-       // yaw = Mathf.Clamp(yaw, -45f, 45f);
-       // //Debug.Log("Angle : " + yaw);
-       //_goCanon.transform.Rotate(0f,yaw , 0f);
-       //_goCanon.transform.eulerAngles = new Vector3(yaw * _fRotateSpeed * Time.deltaTime, pitch * _fRotateSpeed * Time.deltaTime, 0f);
+
+        // yaw = Input.GetAxis("Mouse X") * _fRotateSpeed;
+        // pitch += Input.GetAxis("Mouse X");
+        // yaw = Mathf.Clamp(yaw, -45f, 45f);
+        // //Debug.Log("Angle : " + yaw);
+        //_goCanon.transform.Rotate(0f,yaw , 0f);
+        //_goCanon.transform.eulerAngles = new Vector3(yaw * _fRotateSpeed * Time.deltaTime, pitch * _fRotateSpeed * Time.deltaTime, 0f);
     }
     private void Shoot()
     {
-        if (Input.GetAxis("Fire1")!=0 && CurrentAmmo > 0)
+
+        if (Physics.Raycast(_goCanon.transform.position, _goCanon.transform.forward, out RaycastHit hit))
+        {
+            _reticule.transform.position = Camera.main.WorldToScreenPoint(hit.point); 
+        }
+
+        if (Input.GetAxis("Fire1") != 0 && CurrentAmmo > 0)
         {
             Debug.Log("FEU");
             Fire();
+        }
+    }
+
+    public void PlayAudioShoot(Dictionary<string, object> obj)
+    {
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(audioSource.clip);
         }
     }
 
@@ -88,7 +114,7 @@ public class TankController : BaseController
     {
 
         LifePoint -= ammount;
-        EventManager.TriggerEvent(EventManager.Events.OnLooseLife, new Dictionary<string, object>{ { "Life", LifePoint } });
+        EventManager.TriggerEvent(EventManager.Events.OnLooseLife, new Dictionary<string, object> { { "Life", LifePoint } });
         if (LifePoint <= 0)
         {
             EventManager.TriggerEvent(EventManager.Events.OnLoose, null);
@@ -101,12 +127,12 @@ public class TankController : BaseController
         if (Input.GetKeyDown(KeyCode.R) && CurrentAmmo < MaxAmmo)
         {
 
-            IsReloading= true;
+            IsReloading = true;
             NextShootAvailable = Time.time + ReloadTime;
         }
         else if (IsReloading && NextShootAvailable < Time.time)
         {
-            IsReloading= false;
+            IsReloading = false;
             CurrentAmmo = MaxAmmo;
             EventManager.TriggerEvent(EventManager.Events.OnAmmoModification, new Dictionary<string, object> { { "Ammo", CurrentAmmo } });
         }
