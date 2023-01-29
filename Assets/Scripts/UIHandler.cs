@@ -61,7 +61,7 @@ public class UIHandler : MonoBehaviour
     void Update()
     {
 
-
+        
         if (GameHandler.IsGameOn)
         {
             StartScreen.SetActive(false);

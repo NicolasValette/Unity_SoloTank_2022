@@ -339,6 +339,7 @@ GameObject:
   m_Component:
   - component: {fileID: 183903486}
   - component: {fileID: 183903487}
+  - component: {fileID: 183903488}
   m_Layer: 0
   m_Name: GameHandler
   m_TagString: Untagged
@@ -374,6 +375,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _goUIHandler: {fileID: 1854888246}
+--- !u!114 &183903488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183903485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acc11679f2bbfd84e8443391f5b68ae9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cameraPosition: {fileID: 963194228}
+  _shakeDuration: 0.5
+  _shakeAmount: 0.03
 --- !u!1001 &217614713
 PrefabInstance:
   m_ObjectHideFlags: 0
